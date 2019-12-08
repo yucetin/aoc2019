@@ -9,18 +9,17 @@ defmodule Day01 do
   end
 
   defp calc([h | t]) do
-    if h > 6 do
-      a = fuel_cost(h)
-      b = fuel_cost(a)
-
-      a + b + calc(t)
-    else
-      fuel_cost(h) + calc(t)
-    end
+    cost(h) + calc(t)
   end
 
-  defp fuel_cost(h) do
-    floor(h / 3) - 2
+  defp cost(mass) do
+    cost = Float.floor(mass / 3) - 2
+
+    if cost > 6 do
+      cost = cost + cost(cost)
+    else
+      cost
+    end
   end
 
   defp read_source() do
